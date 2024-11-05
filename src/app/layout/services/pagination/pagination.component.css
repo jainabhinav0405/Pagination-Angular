@@ -1,0 +1,30 @@
+.pagination-link {
+  text-decoration: none;
+  padding: 8px 12px;
+  color: white;
+  border: 2px solid black;
+}
+
+
+.pagination-link {
+  text-decoration: none;
+  padding: 8px 12px;
+  color: white;
+  /* color: #333; */
+  border: 2px solid black;
+}
+
+ .pagination-link.active-page {
+  background-color: violet;
+  color: white;
+}
+
+.pagination-link:hover:not(.active-page) {
+  background-color: pink;
+}
+@media (max-width: 768px) {
+  
+  .pagination-link:hover:not(.active-page) {
+    padding: 4px 8px;
+  }
+}

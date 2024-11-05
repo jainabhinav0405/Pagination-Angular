@@ -1,0 +1,27 @@
+<div id="footer">
+
+    <div class="pagination">
+        <!-- <input type="text" id="offset"  placeholder="10" > -->
+        <select name="" id="offset" [(ngModel)]="offset" (ngModelChange)="updateOffset()" #buttons required>
+
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+
+        <a href="#" class="prev" (click)="prev()">«</a>
+        <div class="buttons" #paginationContainer>
+            @for(page of totalPagesArray; track $index;){
+                    {{page}}
+                    <a class="pagination-link button{{page}}" [ngClass]="[  page === 1?'active-page':'' ]"  (click)="selectPage(page)">{{page}}</a>
+
+  
+            }
+            
+            <!-- <app-pagination></app-pagination> -->
+            
+        </div>
+        <a href="#" class="next" (click)="next()">»</a>
+    </div>
+</div>
