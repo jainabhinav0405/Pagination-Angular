@@ -52,25 +52,11 @@ export class MainContentComponent implements OnInit {
 
     this.dataService.dataEmitter.subscribe({
       next: async (value) => {
-        // console.log(value);
-        //   this.productCard = [];
-        //   const pageValue = value / 10;
-        //     for (let i = 1; i <= pageValue; i++) {
-        //         if (!this.dataInCache.includes(i)) {
-        //             this.pagination.currentPage = i;
-        //             await this.getDataAsync(10, (i - 1) * 10);
-        //             // this.pagination.pagesInfo.set(i, this.productCard.slice());
-        //         }
-        //         this.productCard.push(...this.pagination.pagesInfo.get(i) as CardType[]);
-        //         if (this.productCard.length % pageValue == 0) {
-        //             this.pagination.currentPage++;
-        //         }
-        //     }
-        //     this.pagination.limit = value;
-        //     this.pagination.currentPage = 1;
-        //     this.pagination.pagesInfo.clear();
-        //     this.pagination.pagesInfo.set(1,this.productCard);
-        //     this.footerFunction.updatePagination(1); // Update pagination UI if applicable
+        this.productCard = [];
+        this.getData(value, 0);
+        this.pagination.limit = value;
+        this.pagination.currentPage = 1;
+        this.footerFunction.updatePagination(1);
       },
     });
 
@@ -108,7 +94,7 @@ export class MainContentComponent implements OnInit {
       }
 
       if (element.scrollHeight) {
-        this.db = setTimeout(() => {
+        this.db = setTimeout(async () => {
           let index: number = 0;
 
           let pageHeight: number = Math.floor(
@@ -127,7 +113,7 @@ export class MainContentComponent implements OnInit {
             element.scrollHeight - 1
           ) {
             console.log('Infinte is Working');
-            this.getData(
+            const response = await this.getDataAsync(
               this.pagination.limit,
               this.pagination.currentPage * this.pagination.limit
             );
@@ -141,11 +127,13 @@ export class MainContentComponent implements OnInit {
           ) {
             console.log(this.pagination.currentPage);
             console.log('next is working');
-            this.getData(
+            const response = await this.getDataAsync(
               this.pagination.limit,
               this.pagination.limit * (this.pagination.currentPage + 1)
             );
+            
             this.footerFunction.next();
+            this.selectPageScroll();
           }
           else if (
             this.pagination.currentPage > 1 &&
@@ -160,6 +148,7 @@ export class MainContentComponent implements OnInit {
               this.pagination.currentPage * this.pagination.limit
             );
             this.footerFunction.prev();
+            this.selectPageScroll();
           }
         }, 200);
       }
@@ -171,8 +160,7 @@ export class MainContentComponent implements OnInit {
     const element = this.mainContent.nativeElement;
     let idx: number = this.dataInCache.indexOf(this.pagination.currentPage);
   
-    element.scrollTop =
-      (element.scrollHeight / this.pagination.pagesInfo.size) * idx;
+    element.scrollTop =(element.scrollHeight / this.pagination.pagesInfo.size) * idx;
   }
 
   getData(limit: number, skip: number) {
