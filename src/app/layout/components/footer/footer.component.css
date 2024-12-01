@@ -1,0 +1,68 @@
+
+
+
+#offset {
+  width: 200px;
+}
+
+
+.pagination {
+  /* padding: 100px; */
+  display: flex;
+  position: relative;
+  list-style: none;
+  padding: 0;
+  /* justify-content: center; */
+  /* left:30%; */
+}
+
+.pagination a {
+  text-decoration: none;
+  padding: 8px 12px;
+  color: white;
+  /* color: #333; */
+  border: 2px solid black;
+}
+
+.pagination a.active-page {
+  background-color: violet;
+  color: white;
+}
+
+.pagination a:hover:not(.active-page) {
+  background-color: pink;
+}
+@media (max-width: 768px) {
+  .pagination {
+    flex-wrap: wrap;
+  }
+  .pagination a {
+    padding: 4px 8px;
+  }
+}
+
+#footer{
+  display:inline-block;
+  width: 1920px;
+  height: 100px;
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  align-content: center;
+  /* left: 45%; */
+}
+.disable {
+  background-color: grey;
+  color: darkgrey;
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+ .buttons{
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  max-width: 300px;
+  display: flex;
+}
